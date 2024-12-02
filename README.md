@@ -86,6 +86,17 @@ npm i react-router-dom
    )
 ```
 
+## Navbar Component
+- First reorder folder structure. New folder /src/Pages. Here move all the folders with routes (App+Home+Notfound_Order_Orders_Signin).
+- Then a new folder /src/Components. In Component a new folder Navbar (this will be the firstcomponent to create)
+- Update the main.jsx ==> import App from './Pages/App'
+#### Create the component
+- In /src/Components/Navbar add index.jsx
+- In this index.jsx import { NavLink } from 'react-router-dom'.
+- In this index.jsx add a function Navbar with return the navstructure with links
+- Add also some styles using the className={({ isActive }) => (isActive ? activeStyle : undefined)} inside each <NavLink>
+- Add the   const activeStyle = "underline underline-offset-8"; to define the style apply to each NavLink. (here is use tailwind format)
+
 
 
 
