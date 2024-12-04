@@ -102,10 +102,17 @@ npm i react-router-dom
 #### Create Layout Component
 - New Folder /src/Components/Layout + index.jsx
 - In the index.jsx create function Layout and export it.
+- IMPORTANT add parameter { children }. This is to allow receive another component.
 - In the Home/index.jsx import the Layout ===> import Layout from '../../Components/Layout'. Then Replace the <div> with the <Layout>.
 - In the Layout/index.jsx add the styles className as we like.
 - In the rest of Component (Order+Orders+Signin+Notfound) the same as Home/index.jsx. Import the Layout and add it in the function.
 
+## Card 
+#### Create Card Component
+- New Folder /src/Components/Card + index.jsx
+- In the index.jsx create function Card and export it.
+- Add the structure for picture buttons add etc
+- In /Home component import the the Card and add inside.
 
 
 
