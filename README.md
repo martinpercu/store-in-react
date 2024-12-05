@@ -211,7 +211,26 @@ return (
 - This is almost the same as we did it in the Card component.
 - Now each time we click in the "+" in the Card component will add 1 to count and this is what is show in the Navbar in the cart div.
 
+## Product Detail
+- New folder src/Components/ProductDetail
+- In ProductDetail new file index.jsx
+- This index is just a component should be something like this.
+```
+const ProductDetail = () => {
+  return (
+    <aside className="product-detail flex flex-col fixed right-0 
+    border-8 border-black rounded-lg bg-gray-400">        
+    </aside>
+  )
+};
 
+export default ProductDetail;
+```
+- In Home import this the ProductDetail ==> import ProductDetail from "../../Components/ProductDetail".
+- Put this component inside the Layout in the Home function return.
+- With this we have the ProductDetail component positioned and showed in the app.
+
+##
  
 
 
