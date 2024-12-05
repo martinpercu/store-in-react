@@ -192,6 +192,26 @@ return (
 ```
 - With this we have a GLOBAL CONTEXT for all the App.
 
+## Cart Counter
+#### Logic for counter
+- In /Context/index.jsx import the "useState"
+- In the ShoppingCartProvider add a const [count, setCount] = useState(0);
+- In ShoppingCartContext.Provider add ==> value={{count,setCount}}
+- In Component/Cart/index.jsx in the div "+" add onClick={() => context.setCount(context.count + 1)}.
+- Import the context ==> import { useContext } from 'react';
+- Import the context ==> import { ShoppingCartContext } from '../../Context';
+- In Card function ==> const context = useContext()
+- In the /Context/index.jsx export the const ShoppingCartContext
+- With this the context is getting receiving the event and add + to count.
+#### Logic for add counter to Navbar Cart
+- In Component/Navbar find the cart and add ==> {context.count}.
+- Import the context ==> import { useContext } from 'react';
+- Import the context ==> import { ShoppingCartContext } from '../../Context';
+- In Navbar functino ==> const context = useContext(ShoppingCartContext)
+- This is almost the same as we did it in the Card component.
+- Now each time we click in the "+" in the Card component will add 1 to count and this is what is show in the Navbar in the cart div.
+
+
  
 
 
