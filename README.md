@@ -106,13 +106,11 @@ npm i react-router-dom
 ```
 
 ## Navbar Component
-
 - First reorder folder structure. New folder /src/Pages. Here move all the folders with routes (App+Home+Notfound_Order_Orders_Signin).
 - Then a new folder /src/Components. In Component a new folder Navbar (this will be the firstcomponent to create)
 - Update the main.jsx ==> import App from './Pages/App'
 
 #### Create the component
-
 - In /src/Components/Navbar add index.jsx
 - In this index.jsx import { NavLink } from 'react-router-dom'.
 - In this index.jsx add a function Navbar with return the navstructure with links
@@ -120,7 +118,6 @@ npm i react-router-dom
 - Add the const activeStyle = "underline underline-offset-8"; to define the style apply to each NavLink. (here is use tailwind format)
 
 ## Layout
-
 #### Create Layout Component
 
 - New Folder /src/Components/Layout + index.jsx
@@ -131,7 +128,6 @@ npm i react-router-dom
 - In the rest of Component (Order+Orders+Signin+Notfound) the same as Home/index.jsx. Import the Layout and add it in the function.
 
 ## Card
-
 #### Create Card Component
 
 - New Folder /src/Components/Card + index.jsx
@@ -140,7 +136,6 @@ npm i react-router-dom
 - In /Home component import the the Card and add inside.
 
 ## Api aprouch
-
 #### Prepare Home component
 
 - In Home import { useState, useEffect } from 'react';
@@ -174,10 +169,30 @@ npm i react-router-dom
 - With this we will render for each product received from the API a Card component. 
 
 
+## Global Context
+#### Folder Context + Index.jsx
+- In /src new folder ==> Context.
+- In /src/Context new index.jsx
+- In the index.jsx ==> import { createContext  } from 'react';
+- In the index.jsx ==> const ShoppingCartContext = createContext();
+- In the index.jsx export const ShoppingCartProvider who receive a children and will return the children "incapsulated" in a <ShoppingCartContext.Provider />
 
+#### Prepare App to use this Global context
+- In /src/Pages/App ==> import { ShoppingCartProvider } from '../../Context'.
+- Then the const App return should be encapsulated inside de <ShoppingCartProvider> something like this:
+```
+return (
+    <ShoppingCartProvider>
+      <BrowserRouter>
+        <AppRoutes />
+        <Navbar />
+      </BrowserRouter>
+    </ShoppingCartProvider>
+  )
+```
+- With this we have a GLOBAL CONTEXT for all the App.
 
-
-
+ 
 
 
 
