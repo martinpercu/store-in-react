@@ -23,7 +23,7 @@ npx tailwindcss init -p
 
 - In tailwind.config.js add this for content:
 
-```
+```js
 content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -32,7 +32,7 @@ content: [
 
 - In the index.css clean all and left just this code
 
-```
+```js
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,13 +40,13 @@ content: [
 
 - Run de project
 
-```
+```sh
 npm run dev
 ```
 
 - To check if everything is OK the App.jsx should be something like this.
 
-```
+```js
 import './App.css'
 
 function App() {
@@ -75,7 +75,7 @@ export default App
 - Important for the /App move the App.jsx and replace the name with the index.jsx (important in the main.jsx update the import line to ====> import App from './App/App.jsx').
 - In the /App/index.jsx import all the others Pages like this
 
-```
+```js
 import Home from '../Home/'
 import Notfound from '../Notfound/'
 import Account from '../Account/'
@@ -88,7 +88,7 @@ import Signin from '../SignIn'
 
 #### Install
 
-```
+```sh
 npm i react-router-dom
 ```
 
@@ -97,7 +97,7 @@ npm i react-router-dom
 - In /App/index.js in AppRoutes function add a let routes = useRoutes([ "list of path "]) ===> Return this routes
 - In the App function return ===>
 
-```
+```js
 (
     <BrowserRouter>
       <AppRoutes />
@@ -142,7 +142,7 @@ npm i react-router-dom
 - In Home create a const [products, setProducts] = useStatec(null);
 - In Home use useEffect to get from the API the products
 
-```
+```js
   useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')
     .then(response => response.json())
@@ -153,7 +153,7 @@ npm i react-router-dom
 
 - In Home in the return of the function in the <Layout> make a map() with the products and put the <Card /> in.
 
-```
+```js
 {
   products?.map((product) => (
     <Card key={product.id} data={product} />
@@ -180,7 +180,7 @@ npm i react-router-dom
 #### Prepare App to use this Global context
 - In /src/Pages/App ==> import { ShoppingCartProvider } from '../../Context'.
 - Then the const App return should be encapsulated inside de <ShoppingCartProvider> something like this:
-```
+```js
 return (
     <ShoppingCartProvider>
       <BrowserRouter>
@@ -215,7 +215,7 @@ return (
 - New folder src/Components/ProductDetail
 - In ProductDetail new file index.jsx
 - This index is just a component should be something like this.
-```
+```js
 const ProductDetail = () => {
   return (
     <aside className="product-detail flex flex-col fixed right-0 
@@ -230,8 +230,77 @@ export default ProductDetail;
 - Put this component inside the Layout in the Home function return.
 - With this we have the ProductDetail component positioned and showed in the app.
 
-##
- 
+## Icons
+#### Installing Heroicons 
+- Visit https://heroicons.com/outline (all icons + docs are in here).
+- First, install `@heroicons/react` from npm:
+```sh
+npm install @heroicons/react
+```
+- Now each icon can be imported individually as a React component:
+
+```js
+import { BeakerIcon } from '@heroicons/react/24/solid'
+
+function MyComponent() {
+  return (
+    <div>
+      <BeakerIcon className="size-6 text-blue-500" />
+      <p>...</p>
+    </div>
+  )
+}
+```
+- This should works just we will use the icon as a component.
+- In ProductDetail ==> import { XMarkIcon } from '@heroicons/react/24/solid'
+- In the return for the close "X" button
+```js
+<div>
+    <XMarkIcon className='h5 w-5 text-violet-700'></XMarkIcon>
+</div>
+```
+- The same to change the cart icon in the Navbar 
+- The same in the Card component to add a "PLUS" icon.
+
+## ProductDetail Mockup
+#### The open/close state
+- In the Context/index.jsx ===> 
+```js
+const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
+const openProductDetail = () => setIsProductDetailOpen(true);
+const closeProductDetail = () => setIsProductDetailOpen(false);
+```
+- Also send this values in the ShoppingCartContext.Provider
+```js
+value={{
+            count,
+            setCount,
+            isProductDetailOpen,
+            openProductDetail,
+            closeProductDetail
+        }}
+```
+- In Card/index.jsx add the event onClick={() => context.openProductDetail()} in the top of element. The idea is click anyplace in the card to open de Details.
+- In ProductDetail import { useContext } from 'react';
+- In ProductDetail import { ShoppingCartContext } from '../../Context';
+- In ProductDetail function const context = useContext(ShoppingCartContext);
+- No change a little bit the aside clasName. "" for {``} to allow pass parameters inside with the ${} format. So in className add thie ===> <br>
+ ${context.isProductDetailOpen ? 'flex' : 'hidden'}. So depending if is true or false will show or not the ProductDetail
+- With this when click the card will open the ProductDetail.
+- To close the Product detail just add this in the X button ===> <br>
+onClick={() => context.closeProductDetail()}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
