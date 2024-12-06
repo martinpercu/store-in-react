@@ -290,6 +290,30 @@ value={{
 - To close the Product detail just add this in the X button ===> <br>
 onClick={() => context.closeProductDetail()}
 
+## Show Product in ProductDetail
+- In Context create a new state. This will be the product to render in product detail.
+```js
+    const [productToShow, setProductToShow] = useState({})
+```
+- In Context ShoppingCartContext.Provider send values productToShow and setProductToShow.
+- In Card we will create a function to use when click. Till now only open the product detail. Now will alse send the "productData".
+```js
+const showProduct = (productData) => {
+    context.openProductDetail();
+    context.setProductToShow(productData);
+}
+```
+- Important chanche the onClick for this: (is data.data because is the way as we receive product for the context in this Card component)
+```js
+onClick={() => showProduct(data.data)}
+```
+- In ProductDetail just use the Data to render the info from the product. As exemple:
+```js
+  <span className='font-medium text-2xl mb-2'>{context.productToShow.title}</span>
+  <span className='font-medium text-2xl'>${context.productToShow.price}</span>
+  <span className='font-light text-sm'>{context.productToShow.description}</span>
+```
+
 
 
 
