@@ -11,9 +11,13 @@ const Card = (data) => {
         context.setProductToShow(productData);
     };
 
-    const addProductToCart = (productData) => {
+    const addProductToCart = (event, productData) => {
+        event.stopPropagation()
         context.setCount(context.count + 1)
         context.setCartProducts([...context.cartProducts, productData]);
+
+        context.openCheckoutSideMenu();
+        context.closeProductDetail();
         console.log('Cart ===>  ', context.cartProducts);
         
     }
@@ -28,7 +32,7 @@ const Card = (data) => {
                 <div 
                 className="absolute top-2 right-2 justify-center items-center text-center 
                 bg-violet-200 w-5 h-5 rounded-full"
-                onClick={() => addProductToCart(data.data)}>
+                onClick={(event) => addProductToCart(event, data.data)}>
                     <PlusIcon 
                     className='h5 w-5 text-violet-700' 
                     />
