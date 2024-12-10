@@ -383,6 +383,32 @@ return (
 ```
 - Now we open a component CheckoutSideMenu with the "plus" button of each Card.
 
+## Order Card
+#### The Order Card Component
+- In /Components new folder /OrderCard in here new file index.jsx
+- In OrderCard create the const like this: T
+```js
+const OrderCard = props => {
+    const { id, title, imageUrl, price } = props;
+}
+```
+- This props will use to define the return 
+- In the CheckoutSideMenu import OrderCard
+- In the CheckoutsideMenu return add the context.cartProducts to map it send the product to each OrderCard like this.
+```js 
+  {
+    context.cartProducts.map(product => (
+      <OrderCard
+        key={product.id}
+        title={product.title}
+        imageUrl={product.images}
+        price={product.price}
+      />
+    ))
+  }
+```
+- No we add a product each time we click the "+" button. The problems is we cannot add twice the same product because we are sending an id for this product and cannot.
+
 
 
 
