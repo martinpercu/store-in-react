@@ -409,6 +409,32 @@ const OrderCard = props => {
 ```
 - No we add a product each time we click the "+" button. The problems is we cannot add twice the same product because we are sending an id for this product and cannot.
 
+## Duplicate Products
+#### Fix duplicate issue
+- We will replace the "+" button for a "Check" icon in each card
+- In the Card we will replace the "+" for a function ===> renderIconPlusOrCheck(id)
+- Then we create this funtion something like this ===> 
+```js
+  const renderIconPlusOrCheck = (id) => {
+    const isInCart = context.cartProducts.filter((product) => product.id === id).length > 0;
+    if (isInCart) {
+      return (
+        <div>
+          <CheckIcon className="h5 w-5 text-violet-700" />
+        </div>
+      );
+    } else {
+      return (
+        <div onClick={(event) => addProductToCart(event, data.data)} >
+          <PlusIcon className="h5 w-5 text-violet-700" />
+        </div>
+      );
+    }
+  }
+  ```
+
+#### Adding scroll to checkout side menu
+- Just add tailwind properties overflow-y-scroll
 
 
 
