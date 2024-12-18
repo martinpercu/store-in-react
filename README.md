@@ -55,7 +55,7 @@ export default App
 - Pages will be: Home + Orders + Account + Sign ()
 #### Home + Orders + Account + Sign + 
 
-### Creating the folder structure for the routing
+#### Creating the folder structure for the routing
 - In /src create folder Pages
 - In /src/Pages we add folders with the names of "pages" so /App /Home /Account /Notfound /Order /Orders /Signin  ===> in all folders add an index.jsx
 - Important for the /App move the App.jsx and replace the name with the index.jsx (important in the main.jsx update the import line to ====> import App from './App/App.jsx').
@@ -68,6 +68,26 @@ import Order from '../Order/'
 import Orders from '../Orders/'
 import Signin from '../SignIn'
 ```
+
+## Router Dom
+#### Install 
+```
+npm i react-router-dom
+```
+- In /App/index.jsx import { useRoutes , BrowserRouter } from 'react-router-dom'
+- In /App/indexjs add a function AppRoutes() to return all the path.
+- In /App/index.js in AppRoutes function add a let routes = useRoutes([ "list of path "]) ===> Return this routes
+- In the App function return ===>
+```
+(
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+   )
+```
+
+
+
 
 
 # React + Vite
