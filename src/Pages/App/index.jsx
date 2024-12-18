@@ -4,16 +4,17 @@ import Notfound from '../Notfound/';
 import Account from '../Account/';
 import Order from '../Order/';
 import Orders from '../Orders/';
-import Signin from '../SignIn';
+import Signin from '../Signin';
+import Navbar from '../../Components/Navbar'
 
 import './App.css';
 
 const AppRoutes = () => {
   let routes = useRoutes([
     { path: '/', element: <Home /> },
+    { path: '/account', element: <Account /> },
     { path: '/order', element: <Order /> },
     { path: '/orders', element: <Orders /> },
-    { path: '/account', element: <Account /> },
     { path: '/signin', element: <Signin /> },
     { path: '/*', element: <Notfound /> },
   ]);
@@ -28,6 +29,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AppRoutes />
+      <Navbar />
     </BrowserRouter>
    )
   // return (
