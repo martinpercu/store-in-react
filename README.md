@@ -50,9 +50,24 @@ function App() {
 
 export default App
 ``` 
+## Component and Pages
+- I will use the concept Pages + Components ====> Pages will be each /"route"
+- Pages will be: Home + Orders + Account + Sign ()
+#### Home + Orders + Account + Sign + 
 
-
-
+### Creating the folder structure for the routing
+- In /src create folder Pages
+- In /src/Pages we add folders with the names of "pages" so /App /Home /Account /Notfound /Order /Orders /Signin  ===> in all folders add an index.jsx
+- Important for the /App move the App.jsx and replace the name with the index.jsx (important in the main.jsx update the import line to ====> import App from './App/App.jsx').
+- In the /App/index.jsx import all the others Pages like this
+```
+import Home from '../Home/'
+import Notfound from '../Notfound/'
+import Account from '../Account/'
+import Order from '../Order/'
+import Orders from '../Orders/'
+import Signin from '../SignIn'
+```
 
 
 # React + Vite
