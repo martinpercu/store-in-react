@@ -468,8 +468,30 @@ const OrderCard = props => {
     )
 }
 ```
-- We get the props and use the handleDeleteOne(id) to update the list of products in the context. (The example above is just what is important for OrderCard)
+- We get the props and use the handleDeleteOne(id) to update the list of products in the context. (The example above is just what is important for OrderCard).
 
+## Add total amount from cart
+#### Total Price
+- We need a total price not only in the CheckoutSideMenu. We will need it in the checkout in the payment area etc. So we will implement a much more global var.
+- New Folder src/Utils ==> a file index.js  (not jsx because no need nothing from DOM)
+- In Utils/index.js just a function to with a var "sum" something like this 
+```js
+export const totalPrice = (products) => {
+    let sum = 0;
+    products.forEach(product => sum += product.price)
+    return sum
+}
+```
+- In CheckoutsideMenu import { totalPrice } from './../../Utils/index.js' 
+- In CheckoutsideMenu in the return add something like this ==> 
+```js
+  <div className='px-6'>
+    <p>
+      <span>Total</span>
+      <span>${totalPrice(context.cartProducts)}</span>
+    </p>
+  </div>
+```
 
 
 
