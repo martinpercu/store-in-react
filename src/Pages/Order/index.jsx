@@ -1,9 +1,11 @@
+import Layout from '../../Components/Layout'
+
 function Order() {
 
     return (
-      <div className='bg-slate-300'>
+      <Layout>
         ONE ORDER
-      </div>
+      </Layout>
     )
   }
   
