@@ -546,9 +546,14 @@ let renderXMarkIcon
       ></XMarkIcon>
   }
 ```
-- In Pages/Order/index.jsx 
-- In Order we add 
-
+- In Pages/Order/index.jsx we import this ==> 
+```js
+import { useContext } from "react";
+import { ShoppingCartContext } from "../../Context";
+import OrderCard from "../../Components/OrderCard";
+```
+- In Pages/Order/index.jsx in funtion add the const context = useContext(ShoppingCartContext);
+- With this we show a list of products in the link orders/last, clean the list of products in checoutsideMenu and open the link with click in checkout button. 
 
 
 
