@@ -570,7 +570,7 @@ import { ShoppingCartContext } from "../../Context";
 ```js
 {
   context.order.map((order, index) => {
-    <Link key={index} to={`/orders/${order.id}`}>
+    <Link key={index} to={`/orders/${index}`}>
     <OrdersCard 
       totalPrice={order.totalPrice} 
       totalProducts={order.totalProducts} 
@@ -592,7 +592,24 @@ import { ShoppingCartContext } from "../../Context";
   <h2>ONE ORDER</h2>
 </div>
 ```
-- Import whatever you need.
+- Import whatever you need. (the chevron icon Link etc.)
+
+## ALGO
+- We will use the index to find de List of Products ===> "the order".
+#### Getting the index.
+- In Order get the ID in the path ..   (the currentPath is ==> /orders/) So we can use currentPath.substring(8) and get the indexOrder. But if route name change in future should be ready with womething like  this ==>
+```js
+let indexOrder = currentPath.substring(currentPath.lastIndexOf('/') + 1 )
+```
+#### Fix issue with "/last"
+- Then know replace also when is going to /last (this is the link just after click on Checkout)
+```js
+  if (indexOrder === 'last') indexOrder = context.order?.length - 1 
+```
+- In the return change context.order?.slice(-1)[0] for context.order?.[indexOrder]?
+
+
+
 
 
 
