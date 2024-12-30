@@ -553,7 +553,46 @@ import { ShoppingCartContext } from "../../Context";
 import OrderCard from "../../Components/OrderCard";
 ```
 - In Pages/Order/index.jsx in funtion add the const context = useContext(ShoppingCartContext);
-- With this we show a list of products in the link orders/last, clean the list of products in checoutsideMenu and open the link with click in checkout button. 
+- With this we show a list of products in the link orders/last, clean the list of products in checoutsideMenu and open the link with click in checkout button.
+
+## List of Orders
+#### Creation the component OrdersCard
+- In /Components create new folder OrdersCard/index.jsx (with S) will be like the OrderCard we already have.
+- In Pages/Orders/index.jsx import all this ==> 
+```js
+import { useContext } from "react";
+import { Link } from 'react-router-dom';
+import Layout from '../../Components/Layout'
+import OrdersCard from '../../Components/OrdersCard';
+import { ShoppingCartContext } from "../../Context";
+```
+- In the return should be something like this.
+```js
+{
+  context.order.map((order, index) => {
+    <Link key={index} to={`/orders/${order.id}`}>
+    <OrdersCard 
+      totalPrice={order.totalPrice} 
+      totalProducts={order.totalProducts} 
+    />
+    </Link>
+    
+  })
+}
+```
+- Very important with this we have in context the info but as we are going to /order this will reset the info. We have no persistent data. So ...
+#### Persist data
+- In Order we add a link to go to Orders ... so add something like this.
+```js
+-
+<div className="flex justify-center w-80 text-center items-center">
+  <Link to='/orders' className="left-0">
+  <ChevronLeftIcon className="h5 w-5 text-violet-700" />
+  </Link>
+  <h2>ONE ORDER</h2>
+</div>
+```
+- Import whatever you need.
 
 
 
