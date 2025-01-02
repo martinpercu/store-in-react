@@ -594,7 +594,7 @@ import { ShoppingCartContext } from "../../Context";
 ```
 - Import whatever you need. (the chevron icon Link etc.)
 
-## ALGO
+## List of Orders
 - We will use the index to find de List of Products ===> "the order".
 #### Getting the index.
 - In Order get the ID in the path ..   (the currentPath is ==> /orders/) So we can use currentPath.substring(8) and get the indexOrder. But if route name change in future should be ready with womething like  this ==>
