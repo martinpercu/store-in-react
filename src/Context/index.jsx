@@ -33,7 +33,13 @@ export const ShoppingCartProvider = ({ children }) => {
 
   // Get Product By Title
   const [searchByTitle, setSearchByTitle] = useState(null);
+
+  // Get Product By Category
+  const [searchByCategory, setSearchByCategory] = useState(null);
   console.log("what is typing ==>  ", searchByTitle);
+
+  // // Get Product By Category and Title
+  // const [searchByBoth, setSearchByBoth] = useState(null);
 
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
@@ -48,11 +54,53 @@ export const ShoppingCartProvider = ({ children }) => {
     return products?.filter(product => product.title.toLowerCase().includes(searchByTitle.toLowerCase()))
   }
 
+  const filteredProductsByCategory = (products, searchByCategory) => {
+    return products?.filter(product => product.category.name.toLowerCase().includes(searchByCategory.toLowerCase()))
+  }
+
+  // const filteredProductsByBoth = (products, searchByCategory, searchByTitle) => {
+  //   return products?.filter(product => product.category.name.toLowerCase().includes(searchByCategory.toLowerCase()).filter(product => product.title.toLowerCase().includes(searchByTitle.toLowerCase())))
+  // }
+  // const filteredProductsByBoth = (products, { searchByTitle = '', searchByCategory = '' }) => {
+  //   return products?.filter(product => {
+  //     const titleMatch = product.title.toLowerCase().includes(searchByTitle.toLowerCase());
+  //     const categoryMatch = product.category.name.toLowerCase().includes(searchByCategory.toLowerCase());
+      
+  //     // Return true if either searchByTitle or searchByCategory is matched
+  //     return (searchByTitle ? titleMatch : true) && (searchByCategory ? categoryMatch : true);
+  //   });
+  // }
+
+  // const filteredProductsByCategoryAndByTitle = (products, searchByCategory) => {
+  //   return products?.filter(product => product.category.name.toLowerCase().includes(searchByCategory.toLowerCase()))
+  // }
+
+  const filterBy = (searchType, products, searchByTitle, searchByCategory) => {
+    if(searchType === 'BY_CATEGORY_AND_TITLE') {
+      return filteredProductsByCategory(products, searchByCategory).filter(product => product.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+    }
+    if(searchType === 'BY_TITLE') {
+      return filteredProductsByTitle(products, searchByTitle)
+    }
+    if(searchType === 'BY_CATEGORY') {
+      return filteredProductsByCategory(products, searchByCategory)
+    }
+    if(!searchType) {
+      return products
+    }
+  }
+
   useEffect(() => {
-    if (searchByTitle) setFilteredProducts(filteredProductsByTitle(products, searchByTitle))
-  }, [products, searchByTitle]);
+    if (searchByCategory && searchByTitle) setFilteredProducts(filterBy('BY_CATEGORY_AND_TITLE', products, searchByTitle, searchByCategory));
+    if (searchByTitle && !searchByCategory) setFilteredProducts(filterBy('BY_TITLE', products, searchByTitle, searchByCategory));
+    if (searchByCategory && !searchByTitle) setFilteredProducts(filterBy('BY_CATEGORY', products, searchByTitle, searchByCategory));
+    if (!searchByCategory && !searchByTitle) setFilteredProducts(filterBy(null, products, searchByTitle, searchByCategory));
+  }, [products, searchByTitle, searchByCategory]);
+
 
   console.log('filterded products ===>   ',  filteredProducts);
+
+  console.log('All products ===>   ',  products);
   
 
 //   console.log("Couhnter ==> ", count);
@@ -81,7 +129,9 @@ export const ShoppingCartProvider = ({ children }) => {
         searchByTitle,
         setSearchByTitle,
         filteredProducts,
-        setFilteredProducts
+        setFilteredProducts,
+        searchByCategory,
+        setSearchByCategory
       }}
     >
       {children}
