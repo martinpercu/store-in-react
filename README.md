@@ -781,6 +781,12 @@ if(currentInfoPath.length ==  1) {
   }      
 } 
 ```
+## Fix Filter Issue in All
+- Much more easy the use some logic in the Home. In the Navbar add the 
+```js
+onClick={() => context.setSearchByCategory()}
+```
+With this we inform the context about what are we doing whe the search... So we always get a filtered products.
 
 
 
