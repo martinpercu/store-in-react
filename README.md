@@ -786,9 +786,8 @@ if(currentInfoPath.length ==  1) {
 ```js
 onClick={() => context.setSearchByCategory()}
 ```
-With this we inform the context about what are we doing whe the search... So we always get a filtered products.
-
-
+- With this we inform the context about what are we doing whe the search... So we always get a filtered products. 
+- I left commented the old lines in order to see the changes. And a basii logic in Home.
 
 
 

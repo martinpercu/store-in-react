@@ -9,6 +9,17 @@ function Home() {
   // const currentInfoPath = window.location.pathname;
 
   const renderView = () => {
+    if (context.filteredProducts?.length > 0) {
+      return (context.filteredProducts?.map((item) => (
+        <Card key={item.id} data={item} />
+      ))
+      )
+    }     
+    if (context.filteredProducts?.length == 0) {
+      return (
+        <div>Nothing to Show!!</div>
+      )
+    }
     // if(currentInfoPath.length ==  1) {
     //   if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
     //     return (context.filteredProducts?.map((item) => (
@@ -28,28 +39,17 @@ function Home() {
     //     )
     //   }      
     // }
-    if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
-      return (context.filteredProducts?.map((item) => (
-        <Card key={item.id} data={item} />
-      ))
-      )
-    }
-    if (context.filteredProducts?.length == 0) {
-      return (
-        <div>Nothing to Show!!</div>
-      )
-    }
-    if (context.filteredProducts === null) {
-      return (context.products?.map((item) => (
-        <Card key={item.id} data={item} />
-      )))
-    }  
-    if (context.filteredProducts?.length > 0) {
-      return (context.filteredProducts?.map((item) => (
-        <Card key={item.id} data={item} />
-      ))
-      )
-    }     
+    // if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
+    //   return (context.filteredProducts?.map((item) => (
+    //     <Card key={item.id} data={item} />
+    //   ))
+    //   )
+    // }
+    // if (context.filteredProducts === null) {
+    //   return (context.products?.map((item) => (
+    //     <Card key={item.id} data={item} />
+    //   )))
+    // }  
     // else {
     //   return (context.products?.map((item) => (
     //     <Card key={item.id} data={item} />
