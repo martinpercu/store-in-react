@@ -1,9 +1,11 @@
+import Layout from '../../Components/Layout'
+
 function Account() {
 
     return (
-      <div className='bg-slate-300'>
+      <Layout>
         Account
-      </div>
+      </Layout>
     )
   }
   

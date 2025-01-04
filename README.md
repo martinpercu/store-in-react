@@ -98,6 +98,16 @@ npm i react-router-dom
 - Add the   const activeStyle = "underline underline-offset-8"; to define the style apply to each NavLink. (here is use tailwind format)
 
 
+## Layout
+#### Create Layout Component
+- New Folder /src/Components/Layout + index.jsx
+- In the index.jsx create function Layout and export it.
+- In the Home/index.jsx import the Layout ===> import Layout from '../../Components/Layout'. Then Replace the <div> with the <Layout>.
+- In the Layout/index.jsx add the styles className as we like.
+- In the rest of Component (Order+Orders+Signin+Notfound) the same as Home/index.jsx. Import the Layout and add it in the function.
+
+
+
 
 
 

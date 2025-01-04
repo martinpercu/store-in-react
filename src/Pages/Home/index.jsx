@@ -1,9 +1,14 @@
+import Layout from '../../Components/Layout'
+
 function Home() {
 
   return (
-    <div className='bg-slate-300'>
-      In home
-    </div>
+    <Layout>
+      HOME
+    </Layout>
+    // <div className=''>
+    //   In home
+    // </div>
   )
 }
 
