@@ -32,17 +32,6 @@ const App = () => {
       </BrowserRouter>
     </ShoppingCartProvider>
   );
-  // return (
-  //   <div className='bg-slate-300'>
-  //       Hello universe
-  //       <Home />
-  //       <Order />
-  //       <Orders />
-  //       <Account />
-  //       <Signin />
-  //       <Notfound />
-  //   </div>
-  // )
 };
 
 export default App;
