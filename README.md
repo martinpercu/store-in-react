@@ -314,7 +314,36 @@ onClick={() => showProduct(data.data)}
   <span className='font-light text-sm'>{context.productToShow.description}</span>
 ```
 
+## Add Product To Cart
+#### Adding the product to global state (cartProducts)
+- In Context new state. Include this in the ShoppingCartContext.Provider
+```js
+    const [cartProducts, setCartProducts] = useState([])
+```
+- In Card create a function to add the product to the state. Actually should push an pbject to the list. This function will be use when do onclink in the "PLUS" button of the Card.
+```js
+    const addProductToCart = () => {
+        context.setCount(context.count + 1)
+        context.setCartProducts([...context.cartProducts, productData]);
+    }
+```
+- Actually we take the count + 1 from the div we already have and add the adding product to the list of product.
+- In the div with the plus button something like this. 
+```js
+<div 
+  className="absolute top-2 right-2 justify-center items-center text-center 
+  bg-violet-200 w-5 h-5 rounded-full"
+  onClick={() => addProductToCart(data.data)}
+>
+      <PlusIcon 
+      className='h5 w-5 text-violet-700' 
+      />
+</div>
+```
+- With this the button plus is adding to counter and is add also the product to the list of products... In the context is cartProducts
 
+## SideMenuCart
+####
 
 
 
