@@ -342,8 +342,47 @@ onClick={() => showProduct(data.data)}
 ```
 - With this the button plus is adding to counter and is add also the product to the list of products... In the context is cartProducts
 
-## SideMenuCart
+## Checkout Side Menu
 ####
+- We need a component to show the products for the checkout. We will use more or less the same a product detail we already have.
+- In /Component new folder CheckoutSideMenu. In this folder new index.jsx. Here copy paste from Product detail.
+- In Context add ==>
+```js
+    const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
+    const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true);
+    const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
+```
+- In Card add the function to Open/show the CheckoutSideMenu.
+- IMPORTANT we need send the "event" in the Card for addProductsToCart(event, data.data) to catch the event and stop Propagation to avoid. So===> 
+```js
+const addProductToCart = (event, productData) => {
+        event.stopPropagation()
+        context.setCount(context.count + 1)
+        context.setCartProducts([...context.cartProducts, productData]);
+        context.openCheckoutSideMenu();        
+        context.closeProductDetail();
+    }
+```
+- And
+```js
+onClick={(event) => addProductToCart(event, data.data)}
+```
+- As Checkout side Menu will be call, probably, for differents places we will import to de App.
+- In /Pages/App ==> import CheckoutSideMenu from "../../Components/CheckoutSideMenu";
+- The App return should be like this...
+```js
+return (
+    <ShoppingCartProvider>
+      <BrowserRouter>
+        <AppRoutes />
+        <Navbar />
+        <CheckoutSideMenu />
+      </BrowserRouter>
+    </ShoppingCartProvider>
+  );
+```
+- Now we open a component CheckoutSideMenu with the "plus" button of each Card.
+
 
 
 
