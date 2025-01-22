@@ -432,11 +432,43 @@ const OrderCard = props => {
     }
   }
   ```
+- In this function we use .filter from the all cartProducts to check if there are or not a product with the same ID as is receiving from the same Card. (Remember the Card Receive each products from /Home with "key={item.id} data={item}").
 
 #### Adding scroll to checkout side menu
 - Just add tailwind properties overflow-y-scroll
 
-
+## Delete Products
+- In CheckoutSideMenu create a function to delete the product from the product List. Something like this ===> 
+```js
+  const handleDeleteOne = (id) => {
+    const filteredProducts = context.cartProducts.filter(product => product.id != id);
+    context.setCartProducts(filteredProducts)
+  }
+```
+- This will be update the list of product in the context.
+- In the return of CheckoutSideMenu in the <OrderCard> we will add handleDeleteOne ===> Should be something like this: 
+```js
+<OrderCard
+  key={product.id}
+  title={product.title}
+  imageUrl={product.images}
+  price={product.price}
+  handleDeleteOne={handleDeleteOne}
+  id={product.id}
+/>
+```
+- Important note we are sending twice {product.id}. This is OK because the key is needed for react to work fine. We will use 'id' to have it non connected.
+- In OrderCard the function should have this ===> 
+```js
+const OrderCard = props => {
+    const { id, title, imageUrl, price, handleDeleteOne } = props;
+    return(
+      <XMarkIcon onClick={() => handleDeleteOne(id)} >
+      </XMarkIcon>
+    )
+}
+```
+- We get the props and use the handleDeleteOne(id) to update the list of products in the context. (The example above is just what is important for OrderCard)
 
 
 
