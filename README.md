@@ -495,6 +495,68 @@ export const totalPrice = (products) => {
 
 ## Flow to new Order
 - In Context/index.jsx add const [order, setOrder] = useState([]) ===> then add them to the return.
+- In CheckoutsideMenu/index.jsx add a chackoutbutton with onClick={() => handleCheckout()}.
+- In CheckoutsideMenu/index.jsx add the handleCheckout() function ==> 
+```js
+const handleCheckout = () => {
+    const orderToAdd = {
+      date: '01.01.25',
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      totalPrice: totalPrice(context.cartProducts)
+    }
+    context.setOrder([...context.order, orderToAdd])
+    context.setCartProducts([])
+  }
+```
+
+
+## 
+- In CheckoutSideMenu import Link 
+```js
+import { Link } from 'react-router-dom';
+```
+- Add <Link to='/orders/last'> and put the <button> inside. So when click the CheckouButton also link to my-order/last.
+- In App/index.jsx add the route 
+```js
+    { path: "/orders/last", element: <Order /> },
+```
+- In Pages/Order/index.jsx add this. (is closer that we have in CheckoutSideMenu)
+```js
+<div className="flex flex-col w-80">
+  {context.order?.slice(-1)[0].products.map((product) => (
+    <OrderCard
+      key={product.id}
+      title={product.title}
+      imageUrl={product.images}
+      price={product.price}
+      id={product.id}
+    />
+  ))}
+</div>
+```
+- Important!! we use the same "Order Card" component. So we must to render the "+" button only if is in the Shop but not render if is in the list of "Order". So===>
+- In OrderCard/index.jsx the return we add {renderXMarkIcon} then we create it with the condition if handleDeleteOne comes like this ===>.
+```js
+let renderXMarkIcon 
+  if (handleDeleteOne) {
+      renderXMarkIcon = <XMarkIcon 
+      onClick={() => handleDeleteOne(id)}
+      className='h5 w-5 text-violet-700 cursor-pointer'
+      ></XMarkIcon>
+  }
+```
+- In Pages/Order/index.jsx we import this ==> 
+```js
+import { useContext } from "react";
+import { ShoppingCartContext } from "../../Context";
+import OrderCard from "../../Components/OrderCard";
+```
+- In Pages/Order/index.jsx in funtion add the const context = useContext(ShoppingCartContext);
+- With this we show a list of products in the link orders/last, clean the list of products in checoutsideMenu and open the link with click in checkout button. 
+
+
+
 
 
 
