@@ -1,11 +1,11 @@
 .product-detail {
-    width: 250px;
+    width: 320px;
     height: calc(100vh - 88px);
     top: 60px;
 }
 
 .checkout-side-menu {
-    width: 250px;
+    width: 320px;
     height: calc(100vh - 88px);
     top: 60px;
 }

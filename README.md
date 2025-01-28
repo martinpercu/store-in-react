@@ -468,7 +468,242 @@ const OrderCard = props => {
     )
 }
 ```
-- We get the props and use the handleDeleteOne(id) to update the list of products in the context. (The example above is just what is important for OrderCard)
+- We get the props and use the handleDeleteOne(id) to update the list of products in the context. (The example above is just what is important for OrderCard).
+
+## Add total amount from cart
+#### Total Price
+- We need a total price not only in the CheckoutSideMenu. We will need it in the checkout in the payment area etc. So we will implement a much more global var.
+- New Folder src/Utils ==> a file index.js  (not jsx because no need nothing from DOM)
+- In Utils/index.js just a function to with a var "sum" something like this 
+```js
+export const totalPrice = (products) => {
+    let sum = 0;
+    products.forEach(product => sum += product.price)
+    return sum
+}
+```
+- In CheckoutsideMenu import { totalPrice } from './../../Utils/index.js' 
+- In CheckoutsideMenu in the return add something like this ==> 
+```js
+  <div className='px-6'>
+    <p>
+      <span>Total</span>
+      <span>${totalPrice(context.cartProducts)}</span>
+    </p>
+  </div>
+```
+
+## Flow to new Order
+- In Context/index.jsx add const [order, setOrder] = useState([]) ===> then add them to the return.
+- In CheckoutsideMenu/index.jsx add a chackoutbutton with onClick={() => handleCheckout()}.
+- In CheckoutsideMenu/index.jsx add the handleCheckout() function ==> 
+```js
+const handleCheckout = () => {
+    const orderToAdd = {
+      date: '01.01.25',
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      totalPrice: totalPrice(context.cartProducts)
+    }
+    context.setOrder([...context.order, orderToAdd])
+    context.setCartProducts([])
+  }
+```
+
+
+## 
+- In CheckoutSideMenu import Link 
+```js
+import { Link } from 'react-router-dom';
+```
+- Add <Link to='/orders/last'> and put the <button> inside. So when click the CheckouButton also link to my-order/last.
+- In App/index.jsx add the route 
+```js
+    { path: "/orders/last", element: <Order /> },
+```
+- In Pages/Order/index.jsx add this. (is closer that we have in CheckoutSideMenu)
+```js
+<div className="flex flex-col w-80">
+  {context.order?.slice(-1)[0].products.map((product) => (
+    <OrderCard
+      key={product.id}
+      title={product.title}
+      imageUrl={product.images}
+      price={product.price}
+      id={product.id}
+    />
+  ))}
+</div>
+```
+- Important!! we use the same "Order Card" component. So we must to render the "+" button only if is in the Shop but not render if is in the list of "Order". So===>
+- In OrderCard/index.jsx the return we add {renderXMarkIcon} then we create it with the condition if handleDeleteOne comes like this ===>.
+```js
+let renderXMarkIcon 
+  if (handleDeleteOne) {
+      renderXMarkIcon = <XMarkIcon 
+      onClick={() => handleDeleteOne(id)}
+      className='h5 w-5 text-violet-700 cursor-pointer'
+      ></XMarkIcon>
+  }
+```
+- In Pages/Order/index.jsx we import this ==> 
+```js
+import { useContext } from "react";
+import { ShoppingCartContext } from "../../Context";
+import OrderCard from "../../Components/OrderCard";
+```
+- In Pages/Order/index.jsx in funtion add the const context = useContext(ShoppingCartContext);
+- With this we show a list of products in the link orders/last, clean the list of products in checoutsideMenu and open the link with click in checkout button.
+
+## List of Orders
+#### Creation the component OrdersCard
+- In /Components create new folder OrdersCard/index.jsx (with S) will be like the OrderCard we already have.
+- In Pages/Orders/index.jsx import all this ==> 
+```js
+import { useContext } from "react";
+import { Link } from 'react-router-dom';
+import Layout from '../../Components/Layout'
+import OrdersCard from '../../Components/OrdersCard';
+import { ShoppingCartContext } from "../../Context";
+```
+- In the return should be something like this.
+```js
+{
+  context.order.map((order, index) => {
+    <Link key={index} to={`/orders/${index}`}>
+    <OrdersCard 
+      totalPrice={order.totalPrice} 
+      totalProducts={order.totalProducts} 
+    />
+    </Link>
+    
+  })
+}
+```
+- Very important with this we have in context the info but as we are going to /order this will reset the info. We have no persistent data. So ...
+#### Persist data
+- In Order we add a link to go to Orders ... so add something like this.
+```js
+-
+<div className="flex justify-center w-80 text-center items-center">
+  <Link to='/orders' className="left-0">
+  <ChevronLeftIcon className="h5 w-5 text-violet-700" />
+  </Link>
+  <h2>ONE ORDER</h2>
+</div>
+```
+- Import whatever you need. (the chevron icon Link etc.)
+
+## List of Orders
+- We will use the index to find de List of Products ===> "the order".
+#### Getting the index.
+- In Order get the ID in the path ..   (the currentPath is ==> /orders/) So we can use currentPath.substring(8) and get the indexOrder. But if route name change in future should be ready with womething like  this ==>
+```js
+let indexOrder = currentPath.substring(currentPath.lastIndexOf('/') + 1 )
+```
+#### Fix issue with "/last"
+- Then know replace also when is going to /last (this is the link just after click on Checkout)
+```js
+  if (indexOrder === 'last') indexOrder = context.order?.length - 1 
+```
+- In the return change context.order?.slice(-1)[0] for context.order?.[indexOrder]?
+
+## Search Products
+- Need move the items to global context
+#### Refactoring
+- From Pages/Home.index.jsx we take the ==> "const [products, setProducts] = useState(null);" and move to global context. Of course import whatever we need.
+- In Context/index add product and set products to ShoppingCartContext.Provider.
+- In Pages/Home.index.jsx use now ==> 
+```js
+  const context = useContext(ShoppingCartContext);
+```
+and the Layout Should be something like this ==> 
+```js
+<Layout>
+  HOME
+  <div className="gap-2 sm:gap-4 grid grid-cols-1 sm:grid-cols-4 sm:w-full 
+  sm:max-w-screen-lg">
+    {context.products?.map((item) => (
+      <Card key={item.id} data={item}/>
+    ))}
+  </div>
+  <ProductDetail />
+</Layout>
+```
+#### Searching Input
+- We need an 'input' to get the titles of product when we write in the input.
+- In Pages/Home.index.jsx. We add a header with the input. This will send what is typing to the context. ==> 
+```js
+<div className="flex flex-col justify-center w-80 text-center items-center gap-6  mb-4">
+  <h2 className="font-medium text-xl mt-2">Find Products</h2>
+  <input
+    type="text"
+    placeholder="Search your product"
+    className="rounded-lg border border-violet-500 p-2 mb-6 focus:outline-violet-800"
+    onChange={(event) => context.setSearchByTitle(event.target.value)}
+  />
+</div>
+```
+- In Context something like this ==> 
+```js
+const [searchByTitle, setSearchByTitle] = useState(null);
+console.log('what is typing ==>  ', searchByTitle);
+```
+- Ov course ShoppingCartContext.Provider must have searchByTitle and setSearchByTitle
+
+## Filter Products
+#### Filter by product title in the context
+- In context we need show "filtered products" so ==> 
+```js
+  // Get Filtered Products
+  const [filteredProducts, setFilteredProducts] = useState(null);
+```
+- Always add to ==> "ShoppingCartContext.Provider".
+- Then a funtion to filteredProductsByTitle and a useEffect to set the filtered products 
+```js
+const filteredProductsByTitle = (products, searchByTitle) => {
+  return products?.filter(product => product.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+}
+
+useEffect(() => {
+  if (searchByTitle) setFilteredProducts(filteredProductsByTitle(products, searchByTitle))
+}, [products, searchByTitle]);
+
+``` 
+- With this we have in context a list of filtered product in relatino with the input.
+#### Show The products in Home.
+- In Pages/Home/index.jsx we create a "rendewView" funtion to show depending the context. Means if nothing write in input show all products (what we already we have). Something write means start filtered products Show list of filtered products if nothing so show a little message with information "Nothing to show". The funtion should be something like this ===> 
+```js
+const renderView = () => {
+  if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
+    return (context.filteredProducts?.map((item) => (
+      <Card key={item.id} data={item} />
+    ))
+    )
+  }
+  if (context.filteredProducts?.length == 0) {
+    return (
+      <div>Nothing to Show!!</div>
+    )
+  }    
+  else {
+    return (context.products?.map((item) => (
+      <Card key={item.id} data={item} />
+    )))
+  }
+}
+```
+- In the return replace the <Card / > with ===>
+```js
+{ renderView() }
+```
+
+
+
+
+
+
+
 
 
 
