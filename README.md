@@ -493,6 +493,9 @@ export const totalPrice = (products) => {
   </div>
 ```
 
+## Flow to new Order
+- In Context/index.jsx add const [order, setOrder] = useState([]) ===> then add them to the return.
+
 
 
 
