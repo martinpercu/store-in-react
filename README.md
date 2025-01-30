@@ -608,6 +608,50 @@ let indexOrder = currentPath.substring(currentPath.lastIndexOf('/') + 1 )
 ```
 - In the return change context.order?.slice(-1)[0] for context.order?.[indexOrder]?
 
+## Search Products
+- Need move the items to global context
+#### Refactoring
+- From Pages/Home.index.jsx we take the ==> "const [products, setProducts] = useState(null);" and move to global context. Of course import whatever we need.
+- In Context/index add product and set products to ShoppingCartContext.Provider.
+- In Pages/Home.index.jsx use now ==> 
+```js
+  const context = useContext(ShoppingCartContext);
+```
+and the Layout Should be something like this ==> 
+```js
+<Layout>
+  HOME
+  <div className="gap-2 sm:gap-4 grid grid-cols-1 sm:grid-cols-4 sm:w-full 
+  sm:max-w-screen-lg">
+    {context.products?.map((item) => (
+      <Card key={item.id} data={item}/>
+    ))}
+  </div>
+  <ProductDetail />
+</Layout>
+```
+#### Searching Input
+- We need an 'input' to get the titles of product when we write in the input.
+- In Pages/Home.index.jsx. We add a header with the input. This will send what is typing to the context. ==> 
+```js
+<div className="flex flex-col justify-center w-80 text-center items-center gap-6  mb-4">
+  <h2 className="font-medium text-xl mt-2">Find Products</h2>
+  <input
+    type="text"
+    placeholder="Search your product"
+    className="rounded-lg border border-violet-500 p-2 mb-6 focus:outline-violet-800"
+    onChange={(event) => context.setSearchByTitle(event.target.value)}
+  />
+</div>
+```
+- In Context something like this ==> 
+```js
+const [searchByTitle, setSearchByTitle] = useState(null);
+console.log('what is typing ==>  ', searchByTitle);
+```
+- Ov course ShoppingCartContext.Provider must have searchByTitle and setSearchByTitle
+
+
 
 
 
