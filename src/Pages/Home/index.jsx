@@ -6,6 +6,56 @@ import { ShoppingCartContext } from "../../Context";
 
 function Home() {
   const context = useContext(ShoppingCartContext);
+  // const currentInfoPath = window.location.pathname;
+
+  const renderView = () => {
+    if (context.filteredProducts?.length > 0) {
+      return (context.filteredProducts?.map((item) => (
+        <Card key={item.id} data={item} />
+      ))
+      )
+    }     
+    if (context.filteredProducts?.length == 0) {
+      return (
+        <div>Nothing to Show!!</div>
+      )
+    }
+    // if(currentInfoPath.length ==  1) {
+    //   if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
+    //     return (context.filteredProducts?.map((item) => (
+    //       <Card key={item.id} data={item} />
+    //     ))
+    //     )
+    //   }
+    //   if (context.filteredProducts?.length == 0) {
+    //     return (
+    //       <div>Nothing to Show!!</div>
+    //     )
+    //   }
+    //   else {
+    //     return (context.products?.map((item) => (
+    //       <Card key={item.id} data={item} />
+    //     ))
+    //     )
+    //   }      
+    // }
+    // if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
+    //   return (context.filteredProducts?.map((item) => (
+    //     <Card key={item.id} data={item} />
+    //   ))
+    //   )
+    // }
+    // if (context.filteredProducts === null) {
+    //   return (context.products?.map((item) => (
+    //     <Card key={item.id} data={item} />
+    //   )))
+    // }  
+    // else {
+    //   return (context.products?.map((item) => (
+    //     <Card key={item.id} data={item} />
+    //   )))
+    // }
+  }
 
   return (
     <Layout>
@@ -23,9 +73,7 @@ function Home() {
         className="gap-2 sm:gap-4 grid grid-cols-1 sm:grid-cols-4 sm:w-full 
       sm:max-w-screen-lg"
       >
-        {context.products?.map((item) => (
-          <Card key={item.id} data={item} />
-        ))}
+        { renderView() }
       </div>
       <ProductDetail />
     </Layout>

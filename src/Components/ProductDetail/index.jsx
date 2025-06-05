@@ -5,7 +5,7 @@ import { ShoppingCartContext } from '../../Context';
 
 const ProductDetail = () => {
   const context = useContext(ShoppingCartContext)
-  console.log('product to show ==> ', context.productToShow);
+  // console.log('product to show ==> ', context.productToShow);
   
 
   return (

@@ -8,7 +8,7 @@ import { totalPrice } from "./../../Utils/index.js";
 
 const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCartContext);
-  console.log("List of product to shox ===>   ", context.cartProducts);
+  // console.log("List of product to shox ===>   ", context.cartProducts);
 
   const handleDeleteOne = (id) => {
     const filteredProducts = context.cartProducts.filter(
