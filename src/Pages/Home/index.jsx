@@ -7,6 +7,25 @@ import { ShoppingCartContext } from "../../Context";
 function Home() {
   const context = useContext(ShoppingCartContext);
 
+  const renderView = () => {
+    if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
+      return (context.filteredProducts?.map((item) => (
+        <Card key={item.id} data={item} />
+      ))
+      )
+    }
+    if (context.filteredProducts?.length == 0) {
+      return (
+        <div>Nothing to Show!!</div>
+      )
+    }    
+    else {
+      return (context.products?.map((item) => (
+        <Card key={item.id} data={item} />
+      )))
+    }
+  }
+
   return (
     <Layout>
       <div className="flex flex-col justify-center w-80 text-center items-center gap-6  mb-4">
@@ -23,9 +42,7 @@ function Home() {
         className="gap-2 sm:gap-4 grid grid-cols-1 sm:grid-cols-4 sm:w-full 
       sm:max-w-screen-lg"
       >
-        {context.products?.map((item) => (
-          <Card key={item.id} data={item} />
-        ))}
+        { renderView() }
       </div>
       <ProductDetail />
     </Layout>

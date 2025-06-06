@@ -651,6 +651,54 @@ console.log('what is typing ==>  ', searchByTitle);
 ```
 - Ov course ShoppingCartContext.Provider must have searchByTitle and setSearchByTitle
 
+## Filter Products
+#### Filter by product title in the context
+- In context we need show "filtered products" so ==> 
+```js
+  // Get Filtered Products
+  const [filteredProducts, setFilteredProducts] = useState(null);
+```
+- Always add to ==> "ShoppingCartContext.Provider".
+- Then a funtion to filteredProductsByTitle and a useEffect to set the filtered products 
+```js
+const filteredProductsByTitle = (products, searchByTitle) => {
+  return products?.filter(product => product.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+}
+
+useEffect(() => {
+  if (searchByTitle) setFilteredProducts(filteredProductsByTitle(products, searchByTitle))
+}, [products, searchByTitle]);
+
+``` 
+- With this we have in context a list of filtered product in relatino with the input.
+#### Show The products in Home.
+- In Pages/Home/index.jsx we create a "rendewView" funtion to show depending the context. Means if nothing write in input show all products (what we already we have). Something write means start filtered products Show list of filtered products if nothing so show a little message with information "Nothing to show". The funtion should be something like this ===> 
+```js
+const renderView = () => {
+  if(context.searchByTitle?.length > 0 && context.filteredProducts?.length > 0) {
+    return (context.filteredProducts?.map((item) => (
+      <Card key={item.id} data={item} />
+    ))
+    )
+  }
+  if (context.filteredProducts?.length == 0) {
+    return (
+      <div>Nothing to Show!!</div>
+    )
+  }    
+  else {
+    return (context.products?.map((item) => (
+      <Card key={item.id} data={item} />
+    )))
+  }
+}
+```
+- In the return replace the <Card / > with ===>
+```js
+{ renderView() }
+```
+
+
 
 
 
