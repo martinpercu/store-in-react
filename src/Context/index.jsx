@@ -85,7 +85,7 @@ export const ShoppingCartProvider = ({ children }) => {
     if(searchType === 'BY_CATEGORY') {
       return filteredProductsByCategory(products, searchByCategory)
     }
-    if(!searchType) {
+    if(searchType == null) {
       return products
     }
   }

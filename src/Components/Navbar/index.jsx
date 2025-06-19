@@ -12,13 +12,16 @@ const Navbar = () => {
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg">
           <NavLink
-            to="/">
+            to="/"
+            onClick={() => context.setSearchByCategory()}
+            >
             Store
           </NavLink>
         </li>
         <li>
           <NavLink
             to="/"
+            onClick={() => context.setSearchByCategory()}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             All
@@ -90,7 +93,7 @@ const Navbar = () => {
         </li>
         <li className="flex items-center gap-1">
           <ShoppingCartIcon className="h5 w-5 text-violet-700" />
-          <div>{context.count}</div>
+          <div>{context.cartProducts.length}</div>
         </li>
       </ul>
     </nav>
