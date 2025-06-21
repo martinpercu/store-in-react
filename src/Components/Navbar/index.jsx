@@ -12,13 +12,16 @@ const Navbar = () => {
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg">
           <NavLink
-            to="/">
+            to="/"
+            onClick={() => context.setSearchByCategory()}
+            >
             Store
           </NavLink>
         </li>
         <li>
           <NavLink
             to="/"
+            onClick={() => context.setSearchByCategory()}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             All
