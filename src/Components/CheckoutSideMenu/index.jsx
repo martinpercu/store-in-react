@@ -27,6 +27,25 @@ const CheckoutSideMenu = () => {
 
     context.setOrder([...context.order, orderToAdd])
     context.setCartProducts([])
+    context.setSearchByTitle(null)
+  }
+
+  const renderCheckoutButton = () => {
+    if(context.cartProducts.length > 0) {
+      return (
+        <Link to='/orders/last'>
+          <button className="w-full bg-gray-900 py-3 text-violet-300 rounded-lg" onClick={() => handleCheckout()}>
+            Checkout
+          </button>
+        </Link>
+      )
+    } else {
+      return (
+        <button className="w-full bg-gray-400 py-3 text-violet-200 rounded-lg">
+        Checkout
+      </button>
+      )
+    }
   }
 
   return (
@@ -62,11 +81,7 @@ const CheckoutSideMenu = () => {
           <span className="font-light">Total</span>
           <span className="font-medium text-2xl">${totalPrice(context.cartProducts)}</span>
         </p>
-        <Link to='/orders/last'>
-          <button className="w-full bg-gray-900 py-3 text-violet-300 rounded-lg" onClick={() => handleCheckout()}>
-            Checkout
-          </button>
-        </Link>
+        {renderCheckoutButton()}
       </div>
     </aside>
   );

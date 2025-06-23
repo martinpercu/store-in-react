@@ -789,7 +789,31 @@ onClick={() => context.setSearchByCategory()}
 - With this we inform the context about what are we doing whe the search... So we always get a filtered products. 
 - I left commented the old lines in order to see the changes. And a basii logic in Home.
 
-
+## Fix Errors
+- We need to clean the input after click in checkout button. Otherwise we have the input clean but products filtered by whatever was typed in the input before click in the checkout button.
+- In CheckoutSideMenu in the handleCheckout we set context.setSearchByTitle(null). 
+- Counter at top is non stopping!! This is adding all the products even is there are from differents orders. So ==>
+- In Navbar we have "{context.count}" should be replace by "{context.cartProducts.length}".
+- Also the Checkout button must be off if we have no products. So a render button like this ==>
+```js
+const renderCheckoutButton = () => {
+  if(context.cartProducts.length > 0) {
+    return (
+      <Link to='/orders/last'>
+        <button className="w-full bg-gray-900 py-3 text-violet-300 rounded-lg" onClick={() => handleCheckout()}>
+          Checkout
+        </button>
+      </Link>
+    )
+  } else {
+    return (
+      <button className="w-full bg-gray-400 py-3 text-violet-200 rounded-lg">
+      Checkout
+    </button>
+    )
+  }
+}
+```
 
 
 
