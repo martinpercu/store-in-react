@@ -1,14 +1,39 @@
+# ReactStore: E-commerce SPA
+
+Modern e-commerce Single Page Application built with React, demonstrating clean architecture and advanced state management patterns.
+
+## 🚀 Live Demo
+https://a-a-store-in-react.netlify.app
+
+## ✨ Key Features
+- Global state management using Context API
+- Client-side routing with React Router
+- Product search and category filtering
+- Shopping cart with add/remove functionality
+- Order history and checkout flow
+- Responsive design with Tailwind CSS
+- RESTful API integration
+
+## 🛠️ Tech Stack
+- **Framework:** React 18 with Vite
+- **Styling:** Tailwind CSS
+- **Routing:** React Router DOM
+- **State Management:** Context API
+- **Icons:** Heroicons
+- **API:** External REST API (Platzi Fake Store)
+
+## 📦 Installation
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+---
+
+[Luego todo tu tutorial step-by-step actual]
 ## 🛒 ReactStore: E-commerce Application with Global State Management
 
 This repository details the step-by-step construction of a fully functional e-commerce Single Page Application (SPA) using **React**, **Vite**, and **Tailwind CSS**. It emphasizes clean component architecture, client-side routing, and robust global state management using the Context API.
-
-## 🛠️ Core Stack and Setup
-
-* **Framework:** React with Vite.
-* **Styling:** Tailwind CSS for utility-first styling.
-* **Routing:** React Router DOM (`useRoutes`, `BrowserRouter`, `NavLink`).
-* **Icons:** Heroicons for UI elements.
-* **Data Source:** External REST API (`https://api.escuelajs.co/api/v1/products`).
 
 ## 🏛️ Architecture and Structure
 
