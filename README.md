@@ -30,7 +30,6 @@ npm run dev
 
 ---
 
-[Luego todo tu tutorial step-by-step actual]
 ## 🛒 ReactStore: E-commerce Application with Global State Management
 
 This repository details the step-by-step construction of a fully functional e-commerce Single Page Application (SPA) using **React**, **Vite**, and **Tailwind CSS**. It emphasizes clean component architecture, client-side routing, and robust global state management using the Context API.
